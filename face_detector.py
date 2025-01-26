@@ -35,7 +35,7 @@ if not ret:
 name = ""
 
 client = MongoClient(db_url)
-db = client.memorylane
+db = client.memory_lane
 relatives = db.relatives
 
 
@@ -89,11 +89,8 @@ def take_photo(intent):
         else:
             name = list(loaded_dict.keys())[minIndex]
             print("Face Recognized :", name)
-            print(name)
             from bson.objectid import ObjectId
             result = relatives.find_one({"_id" : ObjectId(name)})
-            print(result)
-            
 
             if result:
 
@@ -105,12 +102,11 @@ def take_photo(intent):
                     pronoun = "It"
                 
                 if intent == 'name':
-                    print(pronoun + "is" + result[intent])
-                    text_speech.speak(pronoun + "is" + result[intent])
+                    text_speech.speak(pronoun + " is " + result[intent])
                     relatives.update_one({"name" : result['name']}, {"$set" : {"last_meet" : datetime.datetime.utcnow()}})
                 
                 elif intent == 'address':
-                    text_speech.speak(pronoun + "lives in " + result[intent])
+                    text_speech.speak(pronoun + " lives in " + result[intent])
                     relatives.update_one({"name" : result['name']}, {"$set" : {"last_meet" : datetime.datetime.utcnow()}})
 
                 elif intent == 'last_meet':
@@ -123,7 +119,7 @@ def take_photo(intent):
                         text_speech.speak("I don't remember when you met him the last time")
                 
                 elif intent == 'relationship':
-                    text_speech.speak(pronoun + "is your " + result[intent])
+                    text_speech.speak(pronoun + " is your " + result[intent])
                     relatives.update_one({"name" : result['name']}, {"$set" : {"last_meet" : datetime.datetime.utcnow()}})
                   
 
