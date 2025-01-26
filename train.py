@@ -11,7 +11,6 @@ from nltk.stem import SnowballStemmer
 with open('intents.json') as file:
     data = json.load(file)
 
-
 patterns = []
 labels = []
 
@@ -31,18 +30,12 @@ for sample in data['samples']:
         patterns.append(pattern)
         labels.append(tag_label)
 
-print(patterns)
-print(labels)
-
-
 patterns = np.array(patterns)
 labels = np.array(labels)
 
 
 train_message, test_message, train_labels, test_labels = train_test_split(
     patterns, labels, shuffle=True, test_size=0.2, random_state=321)
-
-
 class IntentDataset(Dataset):
     def __init__(self, encodings, labels):
         self.encodings = encodings
@@ -70,7 +63,6 @@ for i in range(len(train_message)):
     stemmed_words = [stemmer.stem(word) for word in filtered_words]
     train_message[i] = ' '.join(stemmed_words)
 
-# Loop over the test_message list and remove stopwords
 for i in range(len(test_message)):
     words = test_message[i].lower().split()
     filtered_words = [word for word in words if word not in ignore_words]
@@ -92,7 +84,7 @@ train_dataset = IntentDataset(train_encodings, train_labels)
 test_dataset = IntentDataset(test_encondings, test_labels)
 
 traning_args = TrainingArguments(
-    output_dir='./resultsss',          # output directory
+    output_dir='./results',          # output directory
     num_train_epochs=20,             # total # of training epochs
     per_device_train_batch_size=9,   # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
@@ -109,7 +101,6 @@ model = DistilBertForSequenceClassification.from_pretrained(
     model_name, num_labels=len(tag_dict))
 
 trainer = Trainer(
-    # the instantiated 🤗 Transformers model to be trained
     model=model,
     args=traning_args,                  # training arguments, defined above
     train_dataset=train_dataset,         # training dataset
@@ -117,4 +108,4 @@ trainer = Trainer(
 )
 
 trainer.train()
-trainer.save_model("intent_cf_modellll")
+trainer.save_model("intent_cf_model")
