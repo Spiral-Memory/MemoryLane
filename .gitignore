@@ -1,6 +1,7 @@
 __pycache__
-intent_cf_model
-results
+intent_cf_model/
+images/
+results/
 .env
 .venv
 Video Demos/
