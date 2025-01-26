@@ -19,7 +19,7 @@ mtcnn = MTCNN(
 resnet = InceptionResnetV1(pretrained='vggface2').eval().to(device)
 
 try:
-    loaded_dict = torch.load("face_embeddings.pt")
+    loaded_dict = torch.load('face_embeddings.pt')
 except:
     loaded_dict = {}
 

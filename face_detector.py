@@ -52,8 +52,6 @@ def updateEmbeddings():
         loaded_dict = {}
         
 def take_photo(intent):
-
-    
     ret, frame = cam.read()
     if not ret:
         print("Failed to take frame")
@@ -91,8 +89,10 @@ def take_photo(intent):
         else:
             name = list(loaded_dict.keys())[minIndex]
             print("Face Recognized :", name)
+            print(name)
             from bson.objectid import ObjectId
             result = relatives.find_one({"_id" : ObjectId(name)})
+            print(result)
             
 
             if result:
@@ -105,6 +105,7 @@ def take_photo(intent):
                     pronoun = "It"
                 
                 if intent == 'name':
+                    print(pronoun + "is" + result[intent])
                     text_speech.speak(pronoun + "is" + result[intent])
                     relatives.update_one({"name" : result['name']}, {"$set" : {"last_meet" : datetime.datetime.utcnow()}})
                 

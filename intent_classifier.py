@@ -3,18 +3,15 @@ import torch
 import torch.nn.functional as F
 import face_detector
 import text_speech
-import nltk
 from nltk.stem import SnowballStemmer
 
-
-# Load the trained model
 detected_intent = ""
 tags = ['Greetings', 'NameInquiry', 'AddressInquiry',
         'LastmeetingInquiry', 'RelationshipInquiry', 'GoodBye']
-model = DistilBertForSequenceClassification.from_pretrained(
-    "intent_cf_model")
 
-# Define the tokenizer
+model = DistilBertForSequenceClassification.from_pretrained(
+    'intent_cf_model')
+
 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
 ignore_words = ['?', '!', '.', ',','is','are','am','was','were','do','does','did','can','could','may','might','must','shall','should','will','would','have','has','had','a','an','the','of','in','on','at','to','for','from','by','with','and','or','but','if','then','else','all','any','both','each','few','more','most','other','some','such','no','nor','not','only','own','same','so','than','too','very','s','t','can','will','just','don','should','now']
 stemmer = SnowballStemmer('english')

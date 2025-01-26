@@ -17,7 +17,6 @@ mtcnn = MTCNN(
 )
 
 resnet = InceptionResnetV1(pretrained='vggface2').eval().to(device)
-
 try:
     loaded_dict = torch.load("face_embeddings.pt")
 except:
@@ -29,7 +28,7 @@ def collate_fn(x):
 
 def get_embeddings():
     dataset = datasets.ImageFolder(
-        'images')
+        "images")
 
     dataset.idx_to_class = {i: c for c, i in dataset.class_to_idx.items()}
     loader = DataLoader(dataset, collate_fn=collate_fn, num_workers=workers)

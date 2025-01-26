@@ -6,8 +6,12 @@ from torch.utils.data import Dataset
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from transformers import Trainer, TrainingArguments
 from nltk.stem import SnowballStemmer
+import os
 
-with open('intents.json') as file:
+base_dir = os.path.dirname(__file__)
+intent_json_path = os.path.join(base_dir, 'intents.json')
+
+with open(intent_json_path) as file:
     data = json.load(file)
 
 patterns = []
@@ -82,18 +86,21 @@ test_encondings = tokenizer(
 train_dataset = IntentDataset(train_encodings, train_labels)
 test_dataset = IntentDataset(test_encondings, test_labels)
 
+results_dir = os.path.join(base_dir, 'results')
+logs_dir = os.path.join(base_dir, 'logs')
+model_dir = os.path.join(base_dir, 'intent_cf_model')
+
 traning_args = TrainingArguments(
-    output_dir='./results',          # output directory
+    output_dir=results_dir,          # output directory
     num_train_epochs=20,             # total # of training epochs
     per_device_train_batch_size=9,   # batch size per device during training
     per_device_eval_batch_size=64,   # batch size for evaluation
     warmup_steps=500,                # number of warmup steps for learning rate scheduler
     weight_decay=0.01,               # strength of weight decay
-    logging_dir='./logs',            # directory for storing logs
+    logging_dir=logs_dir,            # directory for storing logs
     logging_steps=10,
     evaluation_strategy="epoch",
     save_strategy="epoch",
-
 )
 
 model = DistilBertForSequenceClassification.from_pretrained(
@@ -107,4 +114,4 @@ trainer = Trainer(
 )
 
 trainer.train()
-trainer.save_model("intent_cf_model")
+trainer.save_model(model_dir)

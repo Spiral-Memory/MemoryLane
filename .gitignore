@@ -1,6 +1,6 @@
 __pycache__
-images/
 intent_cf_model/
+images/
 results/
 .env
 .venv

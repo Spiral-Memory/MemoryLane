@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 from tkinter import Tk
 from tkinter.filedialog import askopenfilenames
 from pymongo import MongoClient
-import embedding_gen
-import intent_classifier
-import offline_speech_rec
-import face_detector
+import embedding_gen as embedding_gen
+import intent_classifier as intent_classifier
+import offline_speech_rec as offline_speech_rec
+import face_detector as face_detector
 
 load_dotenv()
 db_url = os.getenv("DB_URL", "mongodb://localhost:27017/")
