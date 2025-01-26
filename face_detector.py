@@ -3,10 +3,14 @@ from facenet_pytorch import MTCNN, InceptionResnetV1
 import torch
 import os
 import numpy as np
+from dotenv import load_dotenv
 from pymongo import MongoClient
 import datetime
 import pytz
 import text_speech
+
+load_dotenv()
+db_url = os.getenv("DB_URL", "mongodb://localhost:27017/")
 
 
 workers = 0 if os.name == 'nt' else 2
@@ -23,7 +27,6 @@ mtcnn = MTCNN(
 resnet = InceptionResnetV1(pretrained='vggface2').eval().to(device)
 
 
-
 cam = cv2.VideoCapture(0)
 ret, frame = cam.read()
 if not ret:
@@ -31,9 +34,8 @@ if not ret:
 
 name = ""
 
-url = "mongodb://localhost:27017/"
-client = MongoClient(url)
-db = client.test
+client = MongoClient(db_url)
+db = client.memorylane
 relatives = db.relatives
 
 

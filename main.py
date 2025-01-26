@@ -1,5 +1,6 @@
 import os
 import shutil
+from dotenv import load_dotenv
 from tkinter import Tk
 from tkinter.filedialog import askopenfilenames
 from pymongo import MongoClient
@@ -8,6 +9,8 @@ import intent_classifier
 import offline_speech_rec
 import face_detector
 
+load_dotenv()
+db_url = os.getenv("DB_URL", "mongodb://localhost:27017/")
 
 relative_validator = {
         "$jsonSchema": {
@@ -40,9 +43,9 @@ relative_validator = {
 
 def insert_relative(name, address, relationship, gender):
     objectid = ""
-    url = "mongodb://localhost:27017/"
-    client = MongoClient(url)
-    db = client.test
+    print(db_url)
+    client = MongoClient(db_url)
+    db = client.memory_lane
 
     try:
         db.create_collection("relatives")

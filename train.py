@@ -7,7 +7,6 @@ from transformers import DistilBertTokenizer, DistilBertForSequenceClassificatio
 from transformers import Trainer, TrainingArguments
 from nltk.stem import SnowballStemmer
 
-# Load the intent.json file
 with open('intents.json') as file:
     data = json.load(file)
 

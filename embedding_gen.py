@@ -44,7 +44,7 @@ def get_embeddings():
 
     for x, y in loader:
         if dataset.idx_to_class[y] in existingUser:
-            # print("User already exists")
+            print("User already exists")
             pass
         else:
             x_aligned, prob = mtcnn(x, return_prob=True)
