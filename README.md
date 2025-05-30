@@ -1,5 +1,13 @@
 # Memory Lane - Helping Alzheimer’s Patients Remember
 
+## Demo Videos
+
+Watch these videos to see Memory Lane in action:
+
+- [Memory Lane Feature Walkthrough](https://youtu.be/cyOLuWBITWQ)
+- [Memory Lane Edge Cases](https://youtu.be/MoXNAE0Pd4c)
+
+  
 ## Installation
 
 1. Clone the repository to your local machine:
