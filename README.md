@@ -1,103 +1,126 @@
-# Memory Lane - Helping Alzheimer’s Patients Remember
+# 🧠 Memory Lane - Helping Alzheimer’s Patients Remember
 
-## Demo Videos
+## 📄 Publication
+
+This work was **published in the Proceedings of the 9th International Conference on Soft Computing: Theories and Applications (SoCTA 2024)**, organized at **Malaviya National Institute of Technology (MNIT), Jaipur, Rajasthan, India**, held from **December 27 to 29, 2024**.
+
+**Citation Details**:  
+**Zishan Ahmad**, **Vengadeswaran Shanmugasundaram**  
+*Department of Computer Science and Engineering*  
+*Indian Institute of Information Technology, Kottayam, Kerala, India*  
+*zishan.barun@gmail.com*
+
+The proceedings of SoCTA 2024 will be published in the Lecture Notes in Networks and Systems (LNNS) series by Springer Nature, which is indexed in Scopus.
+
+## 🎥 Demo Videos
 
 Watch these videos to see Memory Lane in action:
 
 - [Memory Lane Feature Walkthrough](https://youtu.be/cyOLuWBITWQ)
 - [Memory Lane Edge Cases](https://youtu.be/MoXNAE0Pd4c)
 
-  
-## Installation
+## ⚙️ Installation
 
-1. Clone the repository to your local machine:
+1. **Clone the repository** to your local machine:
 
-    ```bash
-    git clone https://github.com/Spiral-Memory/MemoryLane.git
-    ```
+   ```bash
+   git clone https://github.com/Spiral-Memory/MemoryLane.git
+   ```
 
-2. Navigate to the project directory:
+2. **Navigate to the project directory**:
 
-    ```bash
-    cd MemoryLane
-    ```
-3. Ensure that Python 3.10.0 is installed on your system. This version is required to avoid any potential dependency resolution errors.
+   ```bash
+   cd MemoryLane
+   ```
 
-4. Create a virtual environment:
+3. **Ensure Python 3.10.0** is installed to avoid dependency errors.
 
-    ```bash
-    python3 -m venv .venv
-    ```
+4. **Create a virtual environment**:
 
-5. Activate the virtual environment:
-    - On Windows:
-        ```bash
-        .venv\Scripts\activate
-        ```
+   ```bash
+   python3 -m venv .venv
+   ```
 
-6. Install the required dependencies:
+5. **Activate the virtual environment**:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+   - On Windows:
 
-## Installing Models
+     ```bash
+     .venv\Scripts\activate
+     ```
 
-1. Download the `intent_cf_model` from the provided link, extract it, and place it in the root folder.  
-   [Download intent_cf_model](https://drive.google.com/drive/folders/1w6HQQCWSCbliR0Y_rR7_B3CdueFDFzlg?usp=sharing) 
+6. **Install dependencies**:
 
-2. Download the `vosk-model-small-en-in-0.4` (used for speech-to-text) from the provided link, and place it in the root folder.  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 📥 Installing Models
+
+1. **Download `intent_cf_model`**, extract it, and place it in the root folder:
+   [Download intent_cf_model](https://drive.google.com/drive/folders/1w6HQQCWSCbliR0Y_rR7_B3CdueFDFzlg?usp=sharing)
+
+2. **Download `vosk-model-small-en-in-0.4`** for speech-to-text and place it in the root folder:
    [Download vosk-model-small-en-in-0.4](https://alphacephei.com/vosk/models/vosk-model-small-en-in-0.4.zip)
 
-## Creating Models for Testing
+## 🧪 Creating Models for Testing
 
-The `intent_cf_model` can also be generated manually. To do so, navigate to the `dev_test` folder, then go to the `intent_train` folder, and run the `train.py` file:
+To generate the `intent_cf_model` manually:
 
 ```bash
 cd dev_test/intent_train
 python train.py
 ```
 
-## Setting Up the Database
+## 🗄️ Setting Up the Database
 
-1. Create a `.env` file and include the following line with your MongoDB connection string:
+1. Create a `.env` file and add your MongoDB connection string:
 
-    ```
-    DB_URL=mongodb+srv://username:password@cluster_url/?retryWrites=true&w=majority&appName=appName
-    ```
+   ```
+   DB_URL=mongodb+srv://username:password@cluster_url/?retryWrites=true&w=majority&appName=appName
+   ```
 
-## Usage
+## 🚀 Usage
 
-1. Navigate to the main script file, `main.py`.
-2. Run the script to start the project:
+1. Head to `main.py`
+2. Run the main script:
 
-    ```bash
-    python main.py
-    ```
+   ```bash
+   python main.py
+   ```
 
-The main script, `main.py`, launches an Assistance Bot to help users interact with the system. Follow these steps:
+The script launches an **Assistance Bot** for user interaction.
 
-3. Select an option by typing the corresponding number and pressing Enter:
-    - **1**: Add a new relative.
-    - **2**: Start recognition.
-    - **3**: Exit the program.
+### Options Menu
 
-4. **Adding a New Relative**:
-    - If you choose option `1`, you will be prompted to:
-        - Enter the name, address, relationship, and gender of the relative.
-        - Upload images of the relative as instructed.
-    - The script will generate embeddings and update the face detector.
+3. Choose an action by entering the corresponding number:
 
-5. **Starting Recognition**:
-    - If you choose option `2`, you will select a mode:
-        - **1**: Voice mode for voice recognition.
-        - **2**: Text mode for text recognition.
-    - The bot will assist with recognition tasks based on the selected mode.
+   - **1**: Add a new relative
+   - **2**: Start recognition
+   - **3**: Exit the program
 
-6. **Exiting the Program**:
-    - Choose option `3` to safely exit the application.
+### Adding a New Relative
 
-7. **Invalid Input**:
-    - If an invalid option is entered, the bot will display "Invalid Choice" and prompt you to select again.
+- Enter name, address, relationship, and gender
+- Upload relative’s images
+- The system generates facial embeddings and updates the detector
 
-Follow the terminal prompts for seamless interaction with the Assistance Bot.
+### Starting Recognition
+
+- Choose between:
+
+  - **Voice Mode** (Option 1)
+  - **Text Mode** (Option 2)
+
+The bot will assist accordingly.
+
+### Exiting the Program
+
+- Select option **3** to exit gracefully
+
+### Invalid Input Handling
+
+- On invalid input, you’ll see: **"Invalid Choice"**
+- The bot will prompt you again
+
+_Just follow the terminal prompts, and the bot will walk you through everything smoothly._
