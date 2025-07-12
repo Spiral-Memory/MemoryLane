@@ -6,6 +6,7 @@ from torch.utils.data import Dataset
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from transformers import Trainer, TrainingArguments
 from nltk.stem import SnowballStemmer
+from sklearn.metrics import accuracy_score
 import os
 
 base_dir = os.path.dirname(__file__)
@@ -36,6 +37,11 @@ for sample in data['samples']:
 patterns = np.array(patterns)
 labels = np.array(labels)
 
+def compute_metrics(p):
+    preds = np.argmax(p.predictions, axis=1)
+    labels = p.label_ids
+    acc = accuracy_score(labels, preds)
+    return {"accuracy": acc}
 
 train_message, test_message, train_labels, test_labels = train_test_split(
     patterns, labels, shuffle=True, test_size=0.2, random_state=321)
@@ -101,6 +107,10 @@ traning_args = TrainingArguments(
     logging_steps=10,
     evaluation_strategy="epoch",
     save_strategy="epoch",
+    load_best_model_at_end=True,       # Load the best model (based on metric)
+    metric_for_best_model="accuracy",  # Use 'accuracy' to choose the best
+    greater_is_better=True,            # Higher accuracy = better
+    save_total_limit=1,                # Limit total checkpoints — delete to keep all.
 )
 
 model = DistilBertForSequenceClassification.from_pretrained(
@@ -109,9 +119,11 @@ model = DistilBertForSequenceClassification.from_pretrained(
 trainer = Trainer(
     model=model,
     args=traning_args,                  # training arguments, defined above
-    train_dataset=train_dataset,         # training dataset
-    eval_dataset=test_dataset,             # evaluation dataset
+    train_dataset=train_dataset,        # training dataset
+    eval_dataset=test_dataset,          # evaluation dataset
+    compute_metrics=compute_metrics,    # define metrics function
 )
 
 trainer.train()
+print("Best checkpoint:", trainer.state.best_model_checkpoint)
 trainer.save_model(model_dir)
