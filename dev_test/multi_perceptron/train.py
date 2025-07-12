@@ -1,6 +1,7 @@
 import numpy as np
 import json
-
+import random
+import os   
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
@@ -10,6 +11,15 @@ from model import NeuralNet
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
 
+seed = 321
+random.seed(seed)
+np.random.seed(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+os.environ['PYTHONHASHSEED'] = str(seed)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 with open('intents.json', 'r') as f:
     intents = json.load(f)
